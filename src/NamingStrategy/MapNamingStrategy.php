@@ -57,32 +57,18 @@ class MapNamingStrategy implements NamingStrategyInterface
     }
 
     /**
-     * Converts the given name so that it can be extracted by the hydrator.
-     *
-     * @param  string $name The original name
-     * @return mixed  The hydrated name
+     * {@inheritDoc}
      */
-    public function hydrate($name)
+    public function extract(string $name, ?object $object = null) : string
     {
-        if (isset($this->mapping[$name])) {
-            return $this->mapping[$name];
-        }
-
-        return $name;
+        return $this->extractionMap[$name] ?? $name;
     }
 
     /**
-     * Converts the given name so that it can be hydrated by the hydrator.
-     *
-     * @param  string $name The original name
-     * @return mixed  The extracted name
+     * {@inheritDoc}
      */
-    public function extract($name)
+    public function hydrate(string $name, ?array $data = null) : string
     {
-        if (isset($this->reverse[$name])) {
-            return $this->reverse[$name];
-        }
-
-        return $name;
+        return $this->hydrationMap[$name] ?? $name;
     }
 }

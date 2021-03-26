@@ -79,7 +79,17 @@ abstract class AbstractHydrator implements
      */
     public function hasStrategy($name)
     {
-        return isset($this->strategies[$name]) || isset($this->strategies['*']);
+        if (isset($this->strategies[$name])) {
+            return true;
+        }
+
+        if ($this->hasNamingStrategy()
+            && isset($this->strategies[$this->getNamingStrategy()->hydrate($name)])
+        ) {
+            return true;
+        }
+
+        return isset($this->strategies['*']);
     }
 
     /**
