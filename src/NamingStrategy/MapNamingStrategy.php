@@ -64,7 +64,7 @@ class MapNamingStrategy implements NamingStrategyInterface
      */
     public function hydrate($name)
     {
-        if (array_key_exists($name, $this->mapping)) {
+        if (isset($this->mapping[$name])) {
             return $this->mapping[$name];
         }
 
@@ -79,7 +79,7 @@ class MapNamingStrategy implements NamingStrategyInterface
      */
     public function extract($name)
     {
-        if (array_key_exists($name, $this->reverse)) {
+        if (isset($this->reverse[$name])) {
             return $this->reverse[$name];
         }
 
